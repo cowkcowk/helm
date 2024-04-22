@@ -795,11 +795,11 @@ database:
       #    memory: 128Mi
       #    cpu: 100m
   external:
-    host: "192.168.0.1"
-    port: "5432"
-    username: "user"
-    password: "password"
-    coreDatabase: "registry"
+    host: "10.172.70.77"
+    port: "5000"
+    username: "harbor"
+    password: "1qazZAQ!"
+    coreDatabase: "harbor"
     # if using existing secret, the key must be "password"
     existingSecret: ""
     # "disable" - No SSL
