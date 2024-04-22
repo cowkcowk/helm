@@ -7,7 +7,6 @@ metadata:
   labels:
 {{ include "harbor.labels" . | indent 4 }}
     component: registry
-    app.kubernetes.io/component: registry
 spec:
   replicas: {{ .Values.registry.replicas }}
   revisionHistoryLimit: {{ .Values.registry.revisionHistoryLimit }}
@@ -25,7 +24,6 @@ spec:
       labels:
 {{ include "harbor.labels" . | indent 8 }}
         component: registry
-        app.kubernetes.io/component: registry
 {{- if .Values.registry.podLabels }}
 {{ toYaml .Values.registry.podLabels | indent 8 }}
 {{- end }}
@@ -88,9 +86,6 @@ spec:
         resources:
 {{ toYaml .Values.registry.registry.resources | indent 10 }}
 {{- end }}
-        {{- if not (empty .Values.containerSecurityContext) }}
-        securityContext: {{ .Values.containerSecurityContext | toYaml | nindent 10 }}
-        {{- end }}
         args: ["serve", "/etc/registry/config.yml"]
         envFrom:
         - secretRef:
@@ -171,7 +166,7 @@ spec:
 {{- end }}
         ports:
         - containerPort: {{ template "harbor.registry.containerPort" . }}
-        - containerPort: {{ ternary .Values.metrics.registry.port 5001 .Values.metrics.enabled }}
+        - containerPort: 5001
         volumeMounts:
         - name: registry-data
           mountPath: {{ .Values.persistence.imageChartStorage.filesystem.rootdirectory }}
@@ -227,9 +222,6 @@ spec:
         resources:
 {{ toYaml .Values.registry.controller.resources | indent 10 }}
 {{- end }}
-        {{- if not (empty .Values.containerSecurityContext) }}
-        securityContext: {{ .Values.containerSecurityContext | toYaml | nindent 10 }}
-        {{- end }}
         envFrom:
         - configMapRef:
             name: "{{ template "harbor.registryCtl" . }}"

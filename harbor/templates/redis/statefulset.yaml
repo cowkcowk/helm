@@ -7,7 +7,6 @@ metadata:
   labels:
 {{ include "harbor.labels" . | indent 4 }}
     component: redis
-    app.kubernetes.io/component: redis
 spec:
   replicas: 1
   serviceName: {{ template "harbor.redis" . }}
@@ -20,7 +19,6 @@ spec:
       labels:
 {{ include "harbor.labels" . | indent 8 }}
         component: redis
-        app.kubernetes.io/component: redis
 {{- if .Values.redis.podLabels }}
 {{ toYaml .Values.redis.podLabels | indent 8 }}
 {{- end }}
@@ -45,9 +43,6 @@ spec:
       - name: redis
         image: {{ .Values.redis.internal.image.repository }}:{{ .Values.redis.internal.image.tag }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
-        {{- if not (empty .Values.containerSecurityContext) }}
-        securityContext: {{ .Values.containerSecurityContext | toYaml | nindent 10 }}
-        {{- end }}
         livenessProbe:
           tcpSocket:
             port: 6379
