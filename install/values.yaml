@@ -216,7 +216,7 @@ persistence:
     # be ignored
     redis:
       existingClaim: ""
-      storageClass: ""
+      storageClass: "openebs-hostpath"
       subPath: ""
       accessMode: ReadWriteOnce
       size: 1Gi
