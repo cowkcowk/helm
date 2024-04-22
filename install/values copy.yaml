@@ -223,7 +223,7 @@ persistence:
       annotations: {}
     trivy:
       existingClaim: ""
-      storageClass: "openebs-hostpath"
+      storageClass: ""
       subPath: ""
       accessMode: ReadWriteOnce
       size: 5Gi
