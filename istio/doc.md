@@ -29,3 +29,7 @@ sudo helm delete istio-base -n istio-system
 sudo kubectl delete namespace istio-system
 
 sudo kubectl get crd -oname | grep --color=never 'istio.io' | xargs sudo kubectl delete
+
+
+sudo kubectl label namespace default istio-injection=enabled
+sudo kubectl label namespace default istio-injection-
