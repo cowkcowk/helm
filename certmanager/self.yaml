@@ -44,3 +44,5 @@ spec:
     name: letsencrypt-staging
     kind: ClusterIssuer
     group: cert-manager.io
+  dnsNames:
+  - registry.cowk8s.com
