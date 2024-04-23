@@ -30,3 +30,17 @@ spec:
     name: selfsigned-issuer
     kind: ClusterIssuer
     group: cert-manager.io
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: registry-cert-2
+  namespace: harbor-system
+spec:
+  isCA: true
+  commonName: registry-cert-2
+  secretName: registry-cert-2
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
+    group: cert-manager.io
