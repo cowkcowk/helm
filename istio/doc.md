@@ -11,10 +11,13 @@ sudo helm status istiod -n istio-system
 
 sudo kubectl create namespace istio-ingress
 sudo helm install istio-ingress istio/gateway -n istio-ingress --wait
-
+sudo helm install istio-ingressgateway istio/gateway -n istio-ingress --wait
 sudo helm ls -n istio-system
 sudo helm ls -n istio-ingress
 sudo helm status istio-ingress -n istio-ingress
+
+sudo helm status istio-ingressgateway
+sudo helm get all istio-ingressgateway
 
 # update config
 
