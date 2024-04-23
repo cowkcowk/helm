@@ -42,7 +42,7 @@ spec:
   secretName: registry-cert-2
   issuerRef:
     name: letsencrypt-staging
-    kind: ClusterIssuer
+    kind: Issuer
     group: cert-manager.io
   dnsNames:
   - registry.cowk8s.com
