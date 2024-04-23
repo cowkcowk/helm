@@ -46,3 +46,9 @@ spec:
     group: cert-manager.io
   dnsNames:
   - registry.cowk8s.com
+  acme:
+    config:
+    - http01:
+        ingressClass: none
+      domains:
+      - registry.cowk8s.com  
