@@ -38,7 +38,7 @@ spec:
       protocol: HTTPS
     tls:
       mode: SIMPLE
-      credentialName: {{ template "harbor.tlsCoreSecretForIngress" . }}
+      credentialName: {{ template $tls.secret.secretName . }}
     hosts:
     - {{ $gateway.hosts.core }}
 {{- end }}
