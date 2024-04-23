@@ -1,0 +1,104 @@
+{{- if eq .Values.expose.type "gateway" }}
+{{- $gateway := .Values.expose.gateway -}}
+{{- $tls := .Values.expose.tls -}}
+{{- if eq .Values.expose.gateway.controller "istio" }}
+  {{- $_ := set . "portal_path" "/" -}}
+  {{- $_ := set . "api_path" "/api/" -}}
+  {{- $_ := set . "service_path" "/service/" -}}
+  {{- $_ := set . "v2_path" "/v2/" -}}
+  {{- $_ := set . "chartrepo_path" "/chartrepo/" -}}
+  {{- $_ := set . "controller_path" "/c/" -}}
+{{- else }}
+  {{- $_ := set . "portal_path" "/" -}}
+  {{- $_ := set . "api_path" "/api/" -}}
+  {{- $_ := set . "service_path" "/service/" -}}
+  {{- $_ := set . "v2_path" "/v2/" -}}
+  {{- $_ := set . "chartrepo_path" "/chartrepo/" -}}
+  {{- $_ := set . "controller_path" "/c/" -}}
+{{- end }}
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: "{{ template "harbor.gateway" . }}"
+spec:
+  selector:
+{{ toYaml $gateway.selector | indent 4 }}    
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - {{ $gateway.hosts.core }}
+{{- if $tls.enabled }}
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: {{ template "harbor.tlsCoreSecretForIngress" . }}
+    hosts:
+    - {{ $gateway.hosts.core }}
+{{- end }}
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: "{{ template "harbor.gateway" . }}"
+spec:
+  hosts:
+  - {{ $gateway.hosts.core }}
+  gateways:
+  - "{{ template "harbor.gateway" . }}"
+  http:
+  - match:
+    - uri:
+        prefix: {{ .api_path }}
+    route:
+    - destination:
+        host: {{ template "harbor.core" . }}
+        port:
+          number: {{ template "harbor.core.servicePort" . }}
+  - match:
+    - uri:
+        prefix: {{ .service_path }}
+    route:
+    - destination:
+        host: {{ template "harbor.core" . }}
+        port:
+          number: {{ template "harbor.core.servicePort" . }}
+  - match:
+    - uri:
+        prefix: {{ .v2_path }}
+    route:
+    - destination:
+        host: {{ template "harbor.core" . }}
+        port:
+          number: {{ template "harbor.core.servicePort" . }}
+  - match:
+    - uri:
+        prefix: {{ .chartrepo_path }}
+    route:
+    - destination:
+        host: {{ template "harbor.core" . }}
+        port:
+          number: {{ template "harbor.core.servicePort" . }}
+  - match:
+    - uri:
+        prefix: {{ .controller_path }}
+    route:
+    - destination:
+        host: {{ template "harbor.core" . }}
+        port:
+          number: {{ template "harbor.core.servicePort" . }}
+  - match:
+    - uri:
+        prefix: {{ .portal_path }}
+    route:
+    - destination:
+        host: {{ template "harbor.portal" . }}
+        port:
+          number: {{ template "harbor.portal.servicePort" . }}
+{{- end }} 

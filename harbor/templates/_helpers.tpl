@@ -277,6 +277,10 @@ app: "{{ template "harbor.name" . }}"
   {{- printf "%s-ingress" (include "harbor.fullname" .) -}}
 {{- end -}}
 
+{{- define "harbor.gateway" -}}
+  {{- printf "%s-gateway" (include "harbor.fullname" .) -}}
+{{- end -}}
+
 {{- define "harbor.noProxy" -}}
   {{- printf "%s,%s,%s,%s,%s,%s,%s,%s" (include "harbor.core" .) (include "harbor.jobservice" .) (include "harbor.database" .) (include "harbor.registry" .) (include "harbor.portal" .) (include "harbor.trivy" .) (include "harbor.exporter" .) .Values.proxy.noProxy -}}
 {{- end -}}
@@ -563,4 +567,9 @@ app: "{{ template "harbor.name" . }}"
 {{/* Allow KubeVersion to be overridden. */}}
 {{- define "harbor.ingress.kubeVersion" -}}
   {{- default .Capabilities.KubeVersion.Version .Values.expose.ingress.kubeVersionOverride -}}
+{{- end -}}
+
+{{/* Allow KubeVersion to be overridden. */}}
+{{- define "harbor.gateway.kubeVersion" -}}
+  {{- default .Capabilities.KubeVersion.Version .Values.expose.gateway.kubeVersionOverride -}}
 {{- end -}}
