@@ -38,7 +38,7 @@ metadata:
   namespace: harbor-system
 spec:
   isCA: true
-  commonName: registry-cert-2
+  commonName: registry.cowk8s.com
   secretName: registry-cert-2
   issuerRef:
     name: letsencrypt-staging
