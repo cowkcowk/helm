@@ -1,10 +1,18 @@
 apiVersion: cert-manager.io/v1
-kind: Issuer
+kind: ClusterIssuer
 metadata:
-  name: selfsignedissuer
-  namespace: harbor-system
+  name: selfsigned-issuer
 spec:
   selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: harbor-issuer
+  namespace: harbor-system
+spec:
+  ca:
+    secretName: root-secret
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -12,12 +20,13 @@ metadata:
   name: registry-cert
   namespace: harbor-system
 spec:
+  isCA: true
+  commonName: registry-cert
   secretName: registry-cert
-  duration: 365d # Validity period of the certificate
-  renewBefore: 30d # Renew the certificate 30 days before expiration
-  isCA: true # Indicates that the certificate is a CA certificate
   privateKey:
-    algorithm: RSA
-    size: 2048
+    algorithm: ECDSA
+    size: 256
   issuerRef:
-    name: selfsignedissuer
+    name: selfsigned-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
