@@ -36,3 +36,5 @@ sudo kubectl get crd -oname | grep --color=never 'istio.io' | xargs sudo kubectl
 
 sudo kubectl label namespace default istio-injection=enabled
 sudo kubectl label namespace default istio-injection-
+
+https://nsirap.com/posts/040-istio-with-lets-encrypt/
