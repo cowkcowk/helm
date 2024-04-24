@@ -1,6 +1,6 @@
 kratos:
   config:
-    dsn: postgres://ory:1qazZAQ!@10.172.70.77:5001/kratos
+    dsn: postgres://ory:1qazZAQ!@10.172.70.77:5000/kratos
     secrets:
       default:
         - dolore occaecat nostrud Ut
