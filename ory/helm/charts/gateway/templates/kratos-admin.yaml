@@ -1,0 +1,83 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: ory
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - kratos.admin.cowk8s.com
+    - kratos.public.cowk8s.com
+# {{- if $tls.enabled }}
+#   - port:
+#       number: 443
+#       name: https
+#       protocol: HTTPS
+#     tls:
+#       mode: SIMPLE
+#       credentialName: {{ template $tls.secret.secretName . }}
+#     hosts:
+#     - {{ $gateway.hosts.core }}
+# {{- end }}
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: ory
+spec:
+  hosts:
+  - kratos.admin.cowk8s.com
+  gateways:
+  - ory
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: kratos-admin
+        port:
+          number: 80
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: ory
+spec:
+  hosts:
+  - kratos.public.cowk8s.com
+  gateways:
+  - ory
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: kratos-public
+        port:
+          number: 80
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: ory
+spec:
+  hosts:
+  - kratos.public.cowk8s.com
+  gateways:
+  - ory
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: kratos-public
+        port:
+          number: 80
