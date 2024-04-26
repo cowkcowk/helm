@@ -300,9 +300,7 @@ persistence:
     existingClaim: ""
     mountPath: /tmp/docker-mailserver
     size: "1Mi"
-    annotations: {
-      helm.sh/resource-policy=keep
-    }
+    annotations: {}
     accessModes:
       - ReadWriteOnce
     storageClass: openebs-hostpath
@@ -314,15 +312,11 @@ persistence:
     existingClaim: ""
     size: 10Gi
     mountPath: /var/mail
-    annotations: {
-      helm.sh/resource-policy=keep
-    }
+    annotations: {}
     accessModes:
       - ReadWriteOnce
     storageClass: openebs-hostpath
-    selector: {
-      helm.sh/resource-policy=keep
-    }
+    selector: {}
 
   # Stores state for Postfix, Dovecot, Fail2Ban, Amavis, PostGrey, ClamAV, SpamAssassin, Rspamd & Redis
   # https://docker-mailserver.github.io/docker-mailserver/edge/faq/#what-about-the-docker-datadmsmail-state-directory
@@ -331,9 +325,7 @@ persistence:
     existingClaim: ""
     mountPath: /var/mail-state
     size: "1Gi"
-    annotations: {
-      helm.sh/resource-policy=keep
-    }
+    annotations: {}
     accessModes:
       - ReadWriteOnce
     storageClass: openebs-hostpath
@@ -345,9 +337,7 @@ persistence:
     existingClaim: ""
     mountPath: /var/log/mail
     size: "1Gi"
-    annotations: {
-      helm.sh/resource-policy=keep
-    }
+    annotations: {}
     accessModes:
       - ReadWriteOnce
     storageClass: openebs-hostpath
