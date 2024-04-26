@@ -2,7 +2,7 @@ sudo helm package docker-mailserver/
 rm -f ./docker-mailserver-3.0.9.tgz
 sudo helm install cowk8s ./docker-mailserver-3.0.9.tgz -f install/docker-mailserver/values.yaml --namespace mail --create-namespace
 sudo helm upgrade cowk8s ./docker-mailserver-3.0.9.tgz -f install/docker-mailserver/values.yaml --namespace mail
-sudo helm uninstall mailserver
+sudo helm uninstall mailserver --keep
 
 sudo kubectl exec -it --namespace mail deploy/cowk8s -- bash
 
@@ -17,3 +17,4 @@ smtps://support%40cowk8s.com:1qazZAQ@mail.cowk8s.com:587?skip_ssl_verify=true
 setup email add support@cowk8s.com 1qazZAQ
 
 sudo kubectl exec -it --namespace mail deploy/cowk8s-docker-mailserver -- setup email add support@cowk8s.com 1qazZAQ
+
