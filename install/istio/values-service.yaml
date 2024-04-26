@@ -1,0 +1,5 @@
+defaults:
+  service:
+    annotations: {
+      metallb.universe.tf/allow-shared-ip: primary
+    }  
