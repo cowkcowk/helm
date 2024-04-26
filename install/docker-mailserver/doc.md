@@ -9,3 +9,11 @@ sudo kubectl exec -it --namespace mail deploy/cowk8s -- bash
 setup email add phantantai@cowk8s.com password
 
 sudo kubectl exec -it --namespace mail deploy/cowk8s-docker-mailserver -- setup email add phantantai@cowk8s.com password
+
+smtps://phantantai%40cowk8s.com:1qazZAQ%21@mail.cowk8s.com:587?skip_ssl_verify=true
+smtps://support%40cowk8s.com:1qazZAQ@mail.cowk8s.com:587?skip_ssl_verify=true
+
+
+setup email add support@cowk8s.com 1qazZAQ
+
+sudo kubectl exec -it --namespace mail deploy/cowk8s-docker-mailserver -- setup email add support@cowk8s.com 1qazZAQ
