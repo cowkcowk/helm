@@ -290,7 +290,8 @@ service:
     ## If there is a Hostname associated with this site, add it here and it will be rendered in the documentation.
     # hostName:
   annotations: {
-    metallb.universe.tf/allow-shared-ip: primary
+    metallb.universe.tf/allow-shared-ip: primary,
+    metallb.universe.tf/ip-allocated-from-pool: primary
   }
   labels: {}
 
