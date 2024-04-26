@@ -287,7 +287,7 @@ service:
     ## in CIDR format. If all IPs shoud be allowed access, set the CIDR as "0.0.0.0/0"
     allowedIps:
       - "0.0.0.0/0"
-    externalTrafficPolicy: Local  
+    externalTrafficPolicy: Cluster 
     ## If there is a Hostname associated with this site, add it here and it will be rendered in the documentation.
     # hostName:
   annotations: {
