@@ -16,7 +16,7 @@ serviceAccount:
 
 ## Specify the name of a TLS secret that contains a certificate and private key for your email domain.
 ## See https://kubernetes.io/docs/concepts/configuration/secret/#tls-secrets
-certificate: 
+certificate: root-secret
 
 # List extra RBL domains to use for hard reject filtering
 rblRejectDomains: []
