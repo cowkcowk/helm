@@ -1,0 +1,23 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: mail
+  namespace: mail
+spec:
+  hosts:
+  - "mail.cowk8s.com"
+  gateways:
+  - mail
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: cowk8s-docker-mailserver
+        port:
+          number: 25
+    headers:
+      request:
+        set:
+          Host: "mail.cowk8s.com"
