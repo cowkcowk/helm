@@ -303,7 +303,7 @@ persistence:
     annotations: {}
     accessModes:
       - ReadWriteOnce
-    storageClass:
+    storageClass: openebs
     selector: {}
 
   # Stores emails
@@ -315,7 +315,7 @@ persistence:
     annotations: {}
     accessModes:
       - ReadWriteOnce
-    storageClass:
+    storageClass: openebs
     selector: {}
 
   # Stores state for Postfix, Dovecot, Fail2Ban, Amavis, PostGrey, ClamAV, SpamAssassin, Rspamd & Redis
@@ -328,7 +328,7 @@ persistence:
     annotations: {}
     accessModes:
       - ReadWriteOnce
-    storageClass:
+    storageClass: openebs
     selector: {}
 
   # Store mail logs
@@ -340,7 +340,7 @@ persistence:
     annotations: {}
     accessModes:
       - ReadWriteOnce
-    storageClass:
+    storageClass: openebs
     selector: {}
 
 ## Monitoring adds the prometheus.io annotations to pods and services, so that the Prometheus Kubernetes SD mechanism
