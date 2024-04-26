@@ -14,6 +14,10 @@ sudo helm install istio-ingress istio/gateway -n istio-ingress --wait
 sudo helm install istio-ingressgateway istio/gateway -n istio-ingress --wait
 
 sudo helm upgrade istio-ingressgateway istio/gateway -n istio-ingress -f install/istio/values-service.yaml --wait
+
+sudo helm install istio-ingressgateway istio/gateway -n istio-ingress -f install/istio/values-service.yaml
+
+sudo helm delete istio-ingressgateway -n istio-ingress
 sudo helm ls -n istio-system
 sudo helm ls -n istio-ingress
 sudo helm status istio-ingress -n istio-ingress

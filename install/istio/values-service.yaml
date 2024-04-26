@@ -3,4 +3,4 @@ defaults:
     annotations: {
       metallb.universe.tf/allow-shared-ip: primary,
       metallb.universe.tf/ip-allocated-from-pool: primary
-    }  
+    }
