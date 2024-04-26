@@ -27,7 +27,8 @@ spec:
   ## If a load balancer is being used, ensure that the newer type of LB that passes along IP information is used
   ## rather than the legacy one.
   {{- if eq .Values.service.type "LoadBalancer" }}
-  externalTrafficPolicy: Local
+  # externalTrafficPolicy: Local
+  externalTrafficPolicy: {{ .Values.service.loadBalancer.externalTrafficPolicy }}
   {{- else if eq .Values.service.type "NodePort" }}
   externalTrafficPolicy: Cluster
   {{ end }}
