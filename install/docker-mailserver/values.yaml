@@ -269,7 +269,7 @@ service:
   ## What scope the service should be exposed in. One of:
   ## - LoadBalancer (to the world)
   ## - ClusterIP (to the cluster)
-  type: "ClusterIP"
+  type: "LoadBalancer"
   ## If there is a port associated with a given service, expose it here.
   # port:
   ## If there is a particular IP that should be used for the service, specify it here.
@@ -291,8 +291,7 @@ service:
     ## If there is a Hostname associated with this site, add it here and it will be rendered in the documentation.
     # hostName:
   annotations: {
-    metallb.universe.tf/allow-shared-ip: primary,
-    metallb.universe.tf/ip-allocated-from-pool: primary
+    metallb.universe.tf/loadBalancerIPs: 10.172.70.49
   }
   labels: {}
 

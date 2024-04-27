@@ -1,6 +1,5 @@
 defaults:
   service:
     annotations: {
-      metallb.universe.tf/allow-shared-ip: primary,
-      metallb.universe.tf/ip-allocated-from-pool: primary
+      metallb.universe.tf/loadBalancerIPs: 10.172.70.49
     }
